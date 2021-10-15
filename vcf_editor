@@ -1,0 +1,14 @@
+import pandas as pd
+
+data  = pd.read_csv('Contacts_002.vcf')
+
+for i,line in enumerate(data.iloc[:,0]):
+  if 'TEL;CELL;PREF' in line:
+      number = line.split(':')[1]
+      if '05' in number[:2]:
+        print(number)
+        data.iloc[:,0][i] = 'TEL;CELL;PREF:' + '+966' + number[2:]
+
+print(data)
+
+data.to_csv(r'/home/amirul/Downloads/Contacts_002.vcf', index=False, header=False)
